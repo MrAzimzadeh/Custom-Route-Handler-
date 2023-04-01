@@ -1,3 +1,5 @@
+using CustomRouteHandler.Handlers;
+
 namespace CustomRouteHandler
 {
     public class Program
@@ -26,10 +28,17 @@ namespace CustomRouteHandler
 
             app.UseAuthorization();
 
-            app.Map("example-route" , async c =>
-            {
-                // https://Example-route gelen butun istek qeyd olunan fonksiyona aktailacak ve oradan qarsilanacaq 
-            });
+            //app.Map("example-route" , async c =>
+            //{
+            //    // https://Example-route gelen butun istek qeyd olunan fonksiyona aktailacak ve oradan qarsilanacaq 
+            //});
+
+
+            app.Map("image/{imageName}" , new  ImageHandler().Handler(builder.Environment.WebRootPath));
+
+
+            app.Map("example-route", new ExampleHandler().Handler()); // https://localhost:7128/example-route
+
 
             app.MapControllerRoute(
                 name: "default",
